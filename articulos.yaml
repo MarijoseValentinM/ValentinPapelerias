@@ -1,0 +1,87 @@
+  swagger: "2.0"
+  info: 
+    version: "1.0.0"
+    title: "Valentin Papelerias"
+    description: "GET & PUT de artículos por ID"
+
+  host: "www.valentinpapelerias.com"
+
+  basePath: "/articulos"
+  
+  schemes: 
+    - "http"
+  consumes: 
+    - "application/json"
+  produces: 
+    - "application/json"
+
+  paths:
+     /{idArticulo}:
+      get:
+        description: "Consulta de artículo"
+        produces: 
+          - "application/json"
+        parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        responses:
+           "200":
+            description: "Consulta exitosa"
+            schema:
+              $ref: "#/definitions/ArticuloResponse"     
+
+      put:
+        description: "actualizacion de artículo por id"
+        parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: datos de actualizacion
+          in: body
+          description: datos para actualizar el articulo
+          required: true
+          schema:
+            $ref: '#/definitions/AriculoRequest'
+        produces: 
+          - "application/json"
+        responses:
+           "201":
+            description: "Artículo actualizado correctamente"
+              
+
+  definitions:
+      ArticuloResponse: 
+        type: "object"
+        properties:
+          idArticulo:
+            type: "string"
+            example: "XXX0000000"
+          nombre:
+           type: "string"
+           example: "Libreta NORMA"
+          descripcion:
+           type: "string"
+           example: "Libreta de la marca norma"
+          precio:
+           type: "number"
+           example: 25.99
+          modelo:
+            type: "string"
+            example: "XXX0000001"
+      
+      AriculoRequest:
+        type: "object"
+        required: 
+        - "nombre"
+        - "apellidoPaterno"
+        - "apellidoMaterno"
+        properties:
+          descripcion:
+           type: "string"
+           example: "Libreta de la marca norma"
+          modelo:
+            type: "string"
+            example: "XXX0000001"
